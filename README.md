@@ -1,4 +1,4 @@
-# DeleteClaudeHistory
+# Delete All Claude History
 
 Delete all claude AI chat history with Selenium automation.
 
@@ -8,7 +8,7 @@ Instructions:
 
 2) Install .NET 8 from https://dotnet.microsoft.com/en-us/download/dotnet
 
-3) Uncompress the zip from release and run DeleteAllClaudeHistory.exe
+3) Uncompress the zip from latest Release and run DeleteAllClaudeHistory.exe
 
 4) Provide the email used to log into Chrome
 
