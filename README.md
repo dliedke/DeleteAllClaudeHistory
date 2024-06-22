@@ -1,19 +1,18 @@
 # Delete All Claude History
 
-Delete all claude AI chat history with Selenium automation.
+Delete all Claude AI chat history with Selenium automation.
 
-Instructions:
+## Instructions:
 
-1) Open Chrome and log into your Chrome account and log into Claude AI
+1. Open Chrome and log into your Chrome account and log into Claude AI
 
-2) Install .NET 8 from https://dotnet.microsoft.com/en-us/download/dotnet
+2. Install .NET 8 from https://dotnet.microsoft.com/en-us/download/dotnet
 
-3) Uncompress the zip from latest Release and run DeleteAllClaudeHistory.exe
+3. Uncompress the zip from latest Release and run DeleteAllClaudeHistory.exe
 
-4) Provide the email used to log into Chrome
+4. Provide the email used to log into Chrome
 
-
-Example of run:
+## Example of run:
 
 NOTE: If you face issues, clear all cache from Chrome Browser, log into Claude AI and try again.
 
@@ -25,7 +24,9 @@ Found profile: Profile 1
 ChromeDriver was started successfully.
 
 DevTools listening on ws://127.0.0.1:61378/devtools/browser/90421033-71d4-458a-8a26-f3b88fac4dba
+
 Total chats found: 40
+
 1/40 - 2.50% - Chat "The Meaning and Purpose of Human Existence" deleted successfully.
 2/40 - 5.00% - Chat "A Pleasant Greeting and Offer of Help" deleted successfully.
 3/40 - 7.50% - Chat "Untitled" deleted successfully.
