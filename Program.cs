@@ -1,16 +1,4 @@
-﻿/* *******************************************************************************************************************
- * Application: DeleteAllClaudeHistory
- * 
- * Autor:  Daniel Liedke
- * 
- * Copyright © Daniel Liedke 2024
- * Usage and reproduction in any manner whatsoever without the written permission of Daniel Liedke is strictly forbidden.
- *  
- * Purpose: Clear all history of chats for Claude AI
- *           
- * *******************************************************************************************************************/
-
-using System;
+﻿using System;
 using System.IO;
 using System.Text.Json;
 using System.Threading;
@@ -22,26 +10,53 @@ namespace DeleteAllClaudeHistory
 {
     public class Program
     {
+        private const string EmailFilePath = "saved_email.txt";
+
         static void Main(string[] args)
         {
-            // Request email for chrome profile that is already logged in Claude AI and save in email variable
-            Console.WriteLine("NOTE: If you face issues, clear all cache from Chrome Browser, log into Claude AI and try again.\r\n");
-            Console.WriteLine("Please enter the email address used for the Chrome Browser profile logged already into Claude AI:\r\n");
+            string? email = LoadSavedEmail();
 
-            string? email = Console.ReadLine();
-
-            // Validate the email input
-            while (string.IsNullOrWhiteSpace(email) || !IsValidEmail(email))
+            if (string.IsNullOrWhiteSpace(email))
             {
-                Console.WriteLine("Invalid email address. Please try again:");
+                Console.WriteLine("NOTE: If you face issues, clear all cache from Chrome Browser, log into Claude AI and try again.\r\n");
+                Console.WriteLine("Please enter the email address used for the Chrome Browser profile logged already into Claude AI:\r\n");
+
                 email = Console.ReadLine();
+
+                // Validate the email input
+                while (string.IsNullOrWhiteSpace(email) || !IsValidEmail(email))
+                {
+                    Console.WriteLine("Invalid email address. Please try again:");
+                    email = Console.ReadLine();
+                }
+
+                SaveEmail(email);
+            }
+            else
+            {
+                Console.WriteLine($"Using saved email: {email}");
+                Console.WriteLine("Press Enter to continue or type a new email to change:");
+                string? input = Console.ReadLine();
+                if (input!=null && !string.IsNullOrWhiteSpace(input))
+                {
+                    email = input;
+                    while (!IsValidEmail(email))
+                    {
+                        Console.WriteLine("Invalid email address. Please try again:");
+                        email = Console.ReadLine();
+                    }
+                    SaveEmail(email);
+                }
             }
 
-            string profileName;
+            string profileName = string.Empty;
             try
             {
-                profileName = FindChromeProfilePath(email);
-                Console.WriteLine($"Found profile: {profileName}");
+                if (email != null)
+                {
+                    profileName = FindChromeProfilePath(email);
+                    Console.WriteLine($"Found profile: {profileName}");
+                }
             }
             catch (Exception ex)
             {
@@ -214,6 +229,20 @@ namespace DeleteAllClaudeHistory
             {
                 return false;
             }
+        }
+
+        static string LoadSavedEmail()
+        {
+            if (File.Exists(EmailFilePath))
+            {
+                return File.ReadAllText(EmailFilePath).Trim();
+            }
+            return string.Empty;
+        }
+
+        static void SaveEmail(string? email)
+        {
+            File.WriteAllText(EmailFilePath, email);
         }
     }
 }
